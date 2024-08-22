@@ -1,0 +1,28 @@
+\chapter{Methodology}\label{chapter:methodology}
+After comparing all the training results of the below models we would find that **JODIE** is one coming up with the best prediction. However, the model jodie still fail to predict the state of the predicted edge.
+In my masterwork I would like to rewrite the embedding function and the loss function of **JODIE to make the state prediction possible.
+
+- function from **JODIE**:
+
+embedding function
+$$ \mathbf{u(t)}=\sigma(W_1^u\mathbf{u(t^-)}+W_2^u\mathbf{i(t^-)}+W_3^uf+W^u_4 \Delta _u)$$
+$$ \mathbf{i(t)}=\sigma(W_1^i\mathbf{i(t^-)}+W_2^i\mathbf{u(t^-)}+W_3^if+W^i_4 \Delta _i)$$
+
+loss function(BCE)
+$$L=-(j_{pos}\log{\tilde{j}}+j_{neg}log(1-\tilde{j}))$$
+
+where
+
+$$\tilde{j}(t+\Delta)=W_1\hat{u}(t+\delta)+W_2\bar{u}+W_3i(t+\Delta ^-)+W_4\bar{i}+B$$
+
+
+
+- functions adapted in my work:
+
+embedding function
+$$ \mathbf{u(t)}=\sigma(W_1^u\mathbf{u(t^-)}+W_2^u\mathbf{i(t^-)}+W_3^uf+W^u_4s+W^u_5\Delta _u)$$
+$$ \mathbf{i(t)}=\sigma(W_1^i\mathbf{i(t^-)}+W_2^i\mathbf{u(t^-)}+W_3^if+W^i_4s+W^u_5 \Delta _i)$$
+
+we will change it from BCE to CE for predictiing state.
+
+$$\tilde{j}(t+\Delta)=W_1\hat{u}(t+\delta)+W_2\bar{u}+W_3i(t+\Delta ^-)+W_4\bar{i}+W_5s+B$$
