@@ -1,4 +1,29 @@
 \chapter{Methodology}\label{chapter:methodology}
+
+
+This work aims to construct a graph neural network-based architecture for predicting, analyzing, and detecting any potentially abnormal behavior regarding the driver during the whole driving process. In particular, The model extracts a description graph, the so-called scene graph, of the driver from the video filmed inside the vehicle and trains itself with these data to learn for future behavior prediction. The result will be used to compare and detect any abnormal behavior. Here we would lay most emphasis on the construction of the training model. To make precious anomaly detection we aim to predict not only if there is a behavior between humans and a specific kind of object but the type of behavior as well, which will cause several adaptions based on existing model \textit{JODIE}.
+
+% advantage
+
+
+
+
+\section{scene graph generation}
+
+% here we generate the graph directly from table from the row data
+
+\subsection{video data extracting}
+\subsection{graph generating}
+% we classify and label the behavior with LLM
+
+\section{model architecture}
+% what is JODIE
+% how do we change the loss function
+% we training with the model adapted from JODIE
+
+
+
+
 After comparing all the training results of the below models we would find that **JODIE** is one coming up with the best prediction. However, the model jodie still fail to predict the state of the predicted edge.
 In my masterwork I would like to rewrite the embedding function and the loss function of **JODIE to make the state prediction possible.
 
