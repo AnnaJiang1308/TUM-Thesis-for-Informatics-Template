@@ -2,29 +2,32 @@
 
 \chapter{Introduction}\label{chapter:introduction}
 Despite the fact that High Driving Automation(SAE Level 4) is achievable in the foreseeable future\cite{inagaki2019critique}, the majority of drivers nowadays would still prefer comprehensive control over their own vehicles. Therefore, increasingly more studies have been focusing on driving safety\cite{lee2005driving}\cite{lee2008fifty}. 
-According to these papers, driver behavior represents the majority cause of accidents while driving. In that case, several methods have been developed to avoid potential danger. Such methods involve Either improving monitoring of the vehicle's inside situation, which analyzes the driving parameters as well as the driver him or herself to determine whether there's no abnormality \cite{karrouchi2023driving}, or proposing a vehicle detection and tracking system from an outer view that estimates time-to-collision (TTC) and warn the driver for a possible collision\cite{aytekin2010increasing}.
+According to these papers, driver behavior represents the majority cause of accidents while driving. In that case, several methods have been developed to avoid potential danger. Such methods involve either improving monitoring of the vehicle's inside situation, which analyzes the driving parameters as well as the driver him or herself to determine whether there's no abnormality\cite{karrouchi2023driving}, or proposing a vehicle detection and tracking system from an outer view that estimates time-to-collision (TTC) and warn the driver for a possible collision\cite{aytekin2010increasing}.
 
 On the other hand, only few research focus on driving behavior prediction, which may be due to the lack of application for the undetermined decision model in behavior prediction, specifically under the topic of autonomous driving. Scientists have succeeded in years of generating dynamic graphs based on videos. However, there is still a gap in the rational use of these forms for behavioral prediction.
 
 In this work, we would like to focus on constructing a comprehensive behavior prediction model based on graph neural networks (GNNs). A Graph Neural Network is a novel type of neural network architecture that can be applied to graph-like inputs. As we are now expecting to train the behavior model for the participators, the training data would contain interaction between several objects and participators while they are driving. GNN is, therefore, prioritized due to its unique structure. Along with that, we would specifically focus on building dynamic graphs as training datasets, as our model would be trained based on sequences of behaviour descriptions extracted from videos.
 Besides, to ensure the compatibility of the dataset and training model, we made some adaptions based on JODIE\cite{kumar2019predicting}, which is the model based on the dynamic evolution of users and items. In order to make the predictions as detailed as possible, we expanded the output catalogue to ensure that not only the interaction itself but also the type of it would be described.
 
-Specifically speaking, We would first gather all the necessary information with the help of the Large language model(LLM), convert it into dynamic graphs and insert these graphs into the model we have adapted from JODIE. By learning the appearance and vanish of all these edges and nodes in the graph, the model should be able to absorb the feature behind it and come up with the prediction for behaviour in the future. The results demonstrate the capacity of using captured video for feature learning, predicting future behaviours and giving warnings when anomalous.
+In a nutshell, We would first gather all the necessary information with the help of the Large language model (LLM), convert it into dynamic graphs and insert these graphs into the model we have adapted from model JODIE. These graph could contain either one specificl participator or all the concerned people. By learning how dynamic graphs change under time series, like the appearance and vanish of all these edges and nodes in the grap, the model should be able to absorb the feature behind it and come up with the prediction for behaviour in the future. Therefore, anormaly detection could also be achieved by comparing the predicted graph with the real one and alert once when any unsuitable behaviour during the driving is detected. we believe that this model provides a new perspective for the prediction of driving behavior detected from videos and allows for more diversified and targeted forecasting.
 
 
 \section{contribution}
 The main contributions of this thesis are summarized as:
-\begin{itemize}
-    % dynamic graph
-    \item From the Dataset \textit{Drive&Act}, we could acquire the hierarchical activity labels of given video data. In this work, we gather 
-    % learning
-    % 
-\end{itemize}
+\begin{description}
+    \item[Dataset Collecton] From the Dataset \textit{drive \& act}, we acquire the hierarchical activity labels of given video data and rewrite them in the form of time sequences. We also cluster the behavior types into several categories with the help of the Large Language Model.
+    \item[Dynamic Graph Construction] By reassembling the nodes and edges in the video data, we construct time sequenced dynamic graphs that could be used as training data for the model.
+    \item[Learning Model Adaption] To enrich the diversity of the prediction, we expand the output from binary to catalogue description to emsure that not only the interaction itself but also the type of it would be described.
+    \item[anormaly detection] By comparing the predicted model with the real one, we could detect any unsuitable behavior during the driving and alert the driver.
+\end{description}
+    
+    
+
 
 
 \section{Structure}
 
-This thesis is structured as follows. In Chapter \ref{chapter:background} we would introduce and explain concepts and definitions concerned to this document. Chapter \ref{chapter:relatedwork}
+This thesis is structured as follows. In Chapter\ref{chapter:background} we would introduce and explain concepts and definitions concerned to this document. Chapter\ref{chapter:relatedwork} reveiews related work in the field of anormaly detection and dynamic link prediction models, the dataset this work refers to and the model we have adapted. Chapter\ref{chapter:methodology} describes the methodology of this work, including the dataset collection, dynamic graph construction and model adaption. Chapter\ref{chapter:evaluation} presents the evaluation of the model and the results of the prediction. Chapter\ref{chapter:futurework} discusses the potential future work that could be done based on this work. Chapter\ref{chapter:conclusion} concludes the thesis and gives a summary of the work done.
 
 
 
