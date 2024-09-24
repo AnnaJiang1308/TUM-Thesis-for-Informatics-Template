@@ -1,123 +1,32 @@
 % !TeX root = ../main.tex
 
 \chapter{Introduction}\label{chapter:introduction}
-With the development of autonomous driving technology, the concern of driving safety is gradually drawing an issue.
+Despite the fact that High Driving Automation(SAE Level 4) is achievable in the foreseeable future\cite{inagaki2019critique}, the majority of drivers nowadays would still prefer comprehensive control over their own vehicles. Therefore, increasingly more studies have been focusing on driving safety\cite{lee2005driving}\cite{lee2008fifty}. 
+According to these papers, driver behavior represents the majority cause of accidents while driving. In that case, several methods have been developed to avoid potential danger. Such methods involve Either improving monitoring of the vehicle's inside situation, which analyzes the driving parameters as well as the driver him or herself to determine whether there's no abnormality \cite{karrouchi2023driving}, or proposing a vehicle detection and tracking system from an outer view that estimates time-to-collision (TTC) and warn the driver for a possible collision\cite{aytekin2010increasing}.
+
+On the other hand, only few research focus on driving behavior prediction, which may be due to the lack of application for the undetermined decision model in behavior prediction, specifically under the topic of autonomous driving. Scientists have succeeded in years of generating dynamic graphs based on videos. However, there is still a gap in the rational use of these forms for behavioral prediction.
+
+In this work, we would like to focus on constructing a comprehensive behavior prediction model based on graph neural networks (GNNs). A Graph Neural Network is a novel type of neural network architecture that can be applied to graph-like inputs. As we are now expecting to train the behavior model for the participators, the training data would contain interaction between several objects and participators while they are driving. GNN is, therefore, prioritized due to its unique structure. Along with that, we would specifically focus on building dynamic graphs as training datasets, as our model would be trained based on sequences of behaviour descriptions extracted from videos.
+Besides, to ensure the compatibility of the dataset and training model, we made some adaptions based on JODIE\cite{kumar2019predicting}, which is the model based on the dynamic evolution of users and items. In order to make the predictions as detailed as possible, we expanded the output catalogue to ensure that not only the interaction itself but also the type of it would be described.
+
+Specifically speaking, We would first gather all the necessary information with the help of the Large language model(LLM), convert it into dynamic graphs and insert these graphs into the model we have adapted from JODIE. By learning the appearance and vanish of all these edges and nodes in the graph, the model should be able to absorb the feature behind it and come up with the prediction for behaviour in the future. The results demonstrate the capacity of using captured video for feature learning, predicting future behaviours and giving warnings when anomalous.
+
 
 \section{contribution}
-% Citation test (with Biber)~\parencite{latex}.
+The main contributions of this thesis are summarized as:
+\begin{itemize}
+    % dynamic graph
+    \item From the Dataset \textit{Drive&Act}, we could acquire the hierarchical activity labels of given video data. In this work, we gather 
+    % learning
+    % 
+\end{itemize}
+
 
 \section{Structure}
 
-\subsection{Subsection}
+This thesis is structured as follows. In Chapter \ref{chapter:background} we would introduce and explain concepts and definitions concerned to this document. Chapter \ref{chapter:relatedwork}
 
-See~\autoref{tab:sample}, \autoref{fig:sample-drawing}, \autoref{fig:sample-plot}, \autoref{fig:sample-listing}, \autoref{fig:tum}, \autoref{fig:tumslide}.
 
-\begin{table}[htpb]
-  \caption[Example table]{An example for a simple table.}\label{tab:sample}
-  \centering
-  \begin{tabular}{l l l l}
-    \toprule
-      A & B & C & D \\
-    \midrule
-      1 & 2 & 1 & 2 \\
-      2 & 3 & 2 & 3 \\
-    \bottomrule
-  \end{tabular}
-\end{table}
 
-\begin{figure}[htpb]
-  \centering
-  % This should probably go into a file in figures/
-  \begin{tikzpicture}[node distance=3cm]
-    \node (R0) {$R_1$};
-    \node (R1) [right of=R0] {$R_2$};
-    \node (R2) [below of=R1] {$R_4$};
-    \node (R3) [below of=R0] {$R_3$};
-    \node (R4) [right of=R1] {$R_5$};
 
-    \path[every node]
-      (R0) edge (R1)
-      (R0) edge (R3)
-      (R3) edge (R2)
-      (R2) edge (R1)
-      (R1) edge (R4);
-  \end{tikzpicture}
-  \caption[Example drawing]{An example for a simple drawing.}\label{fig:sample-drawing}
-\end{figure}
 
-\begin{figure}[htpb]
-  \centering
-
-  \pgfplotstableset{col sep=&, row sep=\\}
-  % This should probably go into a file in data/
-  \pgfplotstableread{
-    a & b    \\
-    1 & 1000 \\
-    2 & 1500 \\
-    3 & 1600 \\
-  }\exampleA
-  \pgfplotstableread{
-    a & b    \\
-    1 & 1200 \\
-    2 & 800 \\
-    3 & 1400 \\
-  }\exampleB
-  % This should probably go into a file in figures/
-  \begin{tikzpicture}
-    \begin{axis}[
-        ymin=0,
-        legend style={legend pos=south east},
-        grid,
-        thick,
-        ylabel=Y,
-        xlabel=X
-      ]
-      \addplot table[x=a, y=b]{\exampleA};
-      \addlegendentry{Example A};
-      \addplot table[x=a, y=b]{\exampleB};
-      \addlegendentry{Example B};
-    \end{axis}
-  \end{tikzpicture}
-  \caption[Example plot]{An example for a simple plot.}\label{fig:sample-plot}
-\end{figure}
-
-\begin{figure}[htpb]
-  \centering
-  \begin{tabular}{c}
-  \begin{lstlisting}[language=SQL]
-    SELECT * FROM tbl WHERE tbl.str = "str"
-  \end{lstlisting}
-  \end{tabular}
-  \caption[Example listing]{An example for a source code listing.}\label{fig:sample-listing}
-\end{figure}
-
-\begin{figure}[htpb]
-  \centering
-  \includegraphics[width=0.8\textwidth]{tum}
-  \caption[Something else can be written here for listing this, otherwise the caption will be written!]{Includegraphics searches for the filename without extension first in logos, then in figures.} \label{fig:tum}
-\end{figure}
-
-\begin{figure}[htpb]
-  \centering
-  \includegraphics[width=0.8\textwidth]{figures/tum}
-  \caption{For pictures with the same name, the direct folder needs to be chosen.} \label{fig:tumslide}
-\end{figure}
-
-\begin{figure}[!tbp]
-  \centering
-  \subfloat[TUM Logo][The logo.]{\includegraphics[height=0.2\textheight]{tum}\label{fig:tum1}}
-  \hfill
-  \subfloat[TUM Slide][The famous slide.]{\includegraphics[height=0.2\textheight]{figures/tum}\label{fig:tum2}}
-  \caption{Two TUM pictures side by side.}
-  \label{fig:sidebyside}
-\end{figure}
-
-This is how the glossary will be used.
-
-\Glspl{ddye}, \gls{r0}, \gls{R0}, and \gls{kdeac}. Also, the \glspl{tum} has many \glspl{computer}, not only one \Gls{computer}. Subsequent acronym usage will only print the short version of \glspl{tuma} (take care of plural, if needed!), like here with \gls{tuma}, too. It can also be --> \glsdisp{tum}{hidden}\footnote{Example for a hidden TUM glossary entry.} <--.
-
-\todo{Now it is your turn to write your thesis.
-
-This will be a few tough weeks.}
-
-\done{Nevertheless, celebrate it when it is done!}
