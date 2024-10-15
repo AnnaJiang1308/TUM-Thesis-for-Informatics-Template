@@ -2,16 +2,6 @@
 
 \chapter{Background}\label{chapter:background}
 
-\section{Dynamic Scene Graph for Video}
-The scene graph is a structured representation of a scene that can clearly express the objects, attributes, and relationships between objects in the scene\cite{9661322}. Accompanied by the development of computer vision technology, simply detecting and recognizing objects in images no longer satisfies the researchers, as they would expect some higher level of understanding and reasoning for image vision tasks. In this way, an intuitive idea comes up about adding up the relationship between the detected objects(See example in figure \ref{fig:SGG}). The earliest research could dated back to 2017, when some objects and relations of a given image could be inferred and a scene graph would be produced as a result\cite{xu2017scene}. Other research like Neural Motifs\cite{zellers2018neural} also shows the possibility of predicting the most frequent relation between object pairs with the given labels and object detections. Later in 2018, videos came into discussion, and both spatial and temporal relations would be concerned in the dynamic graph researchers propose to represent\cite{wang2018videos}. Meanwhile, the accuracy of Scene Graph Detection tasks has significantly improved thanks to the application of unbiased SGG\cite{wang2018videos}, fueled by the \textbf{Detection2} \cite{wu2019detectron2}, a library that contains various state-of-the-art detection and segmentation algorithms. In a nutshell, representing videos as dynamic scene graphs including the detection of objects and the relations in between has been realized in the past years. And our work would utilize such technique and extract our driver-oriented dynamic scene graphs for further learning.
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.8\linewidth]{figures/SGG.jpg}
-    \caption{Scene Graph Generation by Iterative Message Passing}
-    \label{fig:SGG}
-\end{figure}
-
 
 \section{Large Language Model}
 Large Language Models (LLMs) are highly complex artificial intelligence systems that can learn from the vast amounts of available text data\cite{radford2018improving}. Thanks to the attending of \textit{Transformer} \cite{vaswani2017attention}, a deep learning architecture, these language models which employed self-supervised pre-training have demonstrated improved efficiency and scalability in many fields.
@@ -27,13 +17,23 @@ In our task, we use zero-shot text classification. This is a task where a model 
 The model used in the pipeline is \textit{BART} \cite{lewis2019bartdenoisingsequencetosequencepretraining}. According to the paper, BART is trained by corrupting text with an arbitrary noising function and learning a model to reconstruct the original text. It uses a standard Tranformer-based neural machine translation architecture which, despite its simplicity, can be seen as generalizing BERT (due to the bidirectional encoder), GPT (with the left-to-right decoder), and many other more recent pretraining schemes. With all these prerequisites it is quite obverious that \textit{BART} is a very practical model for our classification task.
 
 \section{graph}
+In graph theory, a graph is a structure made up of a collection of objects, where certain pairs of these objects are connected in a specific way\cite{zhou2020graph}.As a powerful tool for modeling and analyzing complex systems, researchers have been combined graph theory with deep learning to solve various problems in different fields, such as social networks\cite{wu2020graph}, complex physic system\cite{sanchez2018graph} and Protein-protein interactions (PPIs)\cite{NIPS2017_f5077839}.
+
+A Graph is $\mathcal{G} = (\mathcal{V}, \mathcal{E})$ is a pair of sets, where nodes $\mathcal{V}$
 
 
 
 
-    \subsection{Dynamic graph}
 
     \subsection{Graph Neural Networks}
 
+    \subsection{Dynamic graph}
+Dynamic graphs are a type of graph, the input feature or topology of which changes over time.
+
+
+    
+
 \section{behavior prediction}
+
+
 
