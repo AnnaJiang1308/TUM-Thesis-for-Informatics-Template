@@ -14,18 +14,24 @@ In our project, a bunch of hierarchical activity labels would be acquired from t
 
 In our task, we use zero-shot text classification. This is a task where a model is trained on a set of labeled examples and then classifies new examples from previously unseen classes. This method, which leverages a pre-trained language model, can be thought of as an instance of transfer learning which generally refers to using a model trained for one task in a different application than what it was originally trained for. This is particularly useful for situations where the amount of labeled data is small, for example, our work with 39 different behaviors to be classified.
 
-The model used in the pipeline is \textit{BART} \cite{lewis2019bartdenoisingsequencetosequencepretraining}. According to the paper, BART is trained by corrupting text with an arbitrary noising function and learning a model to reconstruct the original text. It uses a standard Tranformer-based neural machine translation architecture which, despite its simplicity, can be seen as generalizing BERT (due to the bidirectional encoder), GPT (with the left-to-right decoder), and many other more recent pretraining schemes. With all these prerequisites it is quite obverious that \textit{BART} is a very practical model for our classification task.
+The model used in the pipeline is \textit{BART} \cite{lewis2019bartdenoisingsequencetosequencepretraining}. According to the paper, BART is trained by corrupting text with an arbitrary noising function and learning a model to reconstruct the original text. It uses a standard Tranformer-based neural machine translation architecture, which, despite its simplicity, can be seen as generalizing BERT (due to the bidirectional encoder), GPT (with the left-to-right decoder), and many other more recent pretraining schemes. With all these prerequisites, it is quite obvious that \textit{BART} is a very practical model for our classification task.
 
 \section{graph}
-In graph theory, a graph is a structure made up of a collection of objects, where certain pairs of these objects are connected in a specific way\cite{zhou2020graph}.As a powerful tool for modeling and analyzing complex systems, researchers have been combined graph theory with deep learning to solve various problems in different fields, such as social networks\cite{wu2020graph}, complex physic system\cite{sanchez2018graph} and Protein-protein interactions (PPIs)\cite{NIPS2017_f5077839}.
+In graph theory, a graph is a structure made up of a collection of objects, where certain pairs of these objects are connected in a specific way\cite{zhou2020graph}. As a powerful tool for modeling and analyzing complex systems, researchers have combined graph theory with deep learning to solve various problems in different fields, such as social networks\cite{wu2020graph}, complex physic system\cite{sanchez2018graph} and Protein-protein interactions (PPIs)\cite{NIPS2017_f5077839}.
 
-A Graph is $\mathcal{G} = (\mathcal{V}, \mathcal{E})$ is a pair of sets, where nodes $\mathcal{V}$
+A Graph is $\mathcal{G} = (\mathcal{V}, \mathcal{E})$ is a pair of sets, where collections of \textit{nodes} $\mathcal{V}$ and edges $\mathcal{E} \subseteq \mathcal{V}\times \mathcal{V}$ between pairs of nodes. The nodes here are assumed as the nodes to be endowed with s-dimensional \textit{node feature}, denoted by $x_u$ for all $u\in \mathcal{V}$. Taking social as an example, nodes represent users, and edges correspond to the friendship relations between them. The features of nodes model user properties such as age, likelihood, etc. Also, some models, including this work, would endow the edges with features. In generic setting $\mathcal{E} \neq 0$, the node features are rows of the $x\times d$ matrix $X=(x_1,\ldots,x_n)^T$ and the graph connectivity can be represented by the $n\times n adjacency matrix A $ defined as 
+$$a_{uv} = \left\{ \begin{array}{rcl}
+1 & (u,v)\in \mathcal{E} \\ 0 & otherwise 
+\end{array}\right.$$
 
-
-
-
-
+Here $a_{uv}$  specifies the adjacency information between the nodes described by the $u$th and the $v$th rows of $X$.
+Most functions acting on graphs can be viewed as the generators for 'local' node-wise output,i.e., whereby the output on node $u$ directly depends on its neighboring nodes in the graph. It is worthwhile formalizing this constraint explicitly in our model construction by defining what it means for a node to be neighboring another. An (undirected) neighborhood of node $u$ is defined as 
+$$\mathcal{N}_u = {v:(u,v) \in \mathcal{E} or (v,u) \in \mathcal{E}}$$ 
+and the neighborhood features as the multiset\cite{10.48550/arxiv.2104.13478}
+$$\mathcal{X}_{\mathcal{N}_u}={{x_v:v\in N}}$$
     \subsection{Graph Neural Networks}
+    The intuitive understanding among \textbf{Graph Neural Network(GNN)} is that nodes in a graph represent objects or concepts, and edges represent their relationships. Each concept is naturally defined by its features and the related concepts\cite{10.1109/tnn.2008.2005605}.GNNs are among the most general class of deep learning architectures currently in existence, and 
+
 
     \subsection{Dynamic graph}
 Dynamic graphs are a type of graph, the input feature or topology of which changes over time.
@@ -34,6 +40,7 @@ Dynamic graphs are a type of graph, the input feature or topology of which chang
     
 
 \section{behavior prediction}
+
 
 
 
