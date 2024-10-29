@@ -10,7 +10,7 @@ In our work, we utilize the \textbf{Drive \& Act} dataset\cite{9009583} as our p
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\linewidth]{figures/03_DriveAct.png}
+    \includegraphics[width=\linewidth]{figures/03_DriveAct.png}
     \caption{Overview of the Drive\&Act dataset for driver behavior recognition. Reproduced from\cite{9009583}}
     \label{fig:DriveAct}
 \end{figure}
@@ -30,4 +30,12 @@ The scene graph is a structured representation of a scene that can clearly expre
 
 \section{Dynamic Link Prediction}
 
-As 
+After extracting the dynamic scene graph from the video, the next step involves learning the features between elements to enable behavior prediction. Thus, our primary task can be framed as link prediction within the dynamic scene graph, making the choice of a suitable model essential to the success of our work. Thanks to ~\text{DGB}\cite{poursafaei2022towards}, we have a comprehensive review of existing link prediction models and effective evaluation strategies for assessing their performance. Below, we provide an introduction to each model, along with a theoretical explanation of our final selection.
+
+\subsubsection{JODIE}
+Based on the user-item interaction data, JODIE\cite{kumar2019predicting} works as a coupled Recurrent Neural Networks(RNN). The update operator alternatively updates the embedding space of suer and an item at each interaction. And the projection operator learns to estimate the embedding of the user at any time in the future, which is used to predict the next interactions. 
+
+\subsubsection{DyRep}
+DyRep\cite{trivedi2018representation} is an inductive deep representation learning framework that learns a set of functions to efficiently produce low-dimensional node embeddings that evolves over time. The model captures all the new edges appears during the time sequence and upates the embeddings of the nodes accordingly in a custom RNN model. The final output provides a solution to the problems of dynamic link prediction and event time prediction.
+\subsubsection{TGN}
+\subsubsection{CAWN}
