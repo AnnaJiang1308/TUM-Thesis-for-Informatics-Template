@@ -37,5 +37,12 @@ Based on the user-item interaction data, JODIE\cite{kumar2019predicting} works a
 
 \subsubsection{DyRep}
 DyRep\cite{trivedi2018representation} is an inductive deep representation learning framework that learns a set of functions to efficiently produce low-dimensional node embeddings that evolves over time. The model captures all the new edges appears during the time sequence and upates the embeddings of the nodes accordingly in a custom RNN model. The final output provides a solution to the problems of dynamic link prediction and event time prediction.
+% probleom: only on +
+
 \subsubsection{TGN}
+\textbf{TGN}\cite{rossi2006temporal} is a generic, efficient framework for deep learning on dynamic graphs represented as sequences of timed events. To train the Memory-related modules, the message matrix would begin with a raw message store and is updated based on interactions which have been processed by the model in the past, which would also propagate to the node embedding as well as the loss function.  TGNs significantly outperform previous approaches while being more computationally efficient.
+
 \subsubsection{CAWN}
+Based on temporal random walks, \textbf{CAWs} adopt a novel anonymization strategy that replaces node identities with the hitting counts of the nodes based on a set of sampled walks to keep the method inductive, and simultaneously establish the correlation between motifs. It is specialized in work as automatic retrieval of temporal network motifs to represent network dynamics. Since our dataset has only little similarity with random walking, we didn't take this into consideration at last.
+
+After experience on all the above models, our work finally adapted the model \textbf{JODIE}. This is theoretically plausible because our dataset holds the form of participator-object, which is quiet similar to user-item interaction data in structure. No denying that \textbf{TGN} also has a sophisticated structure, however it require a huge amount of data to train, which is unaffordable for our dataset.
