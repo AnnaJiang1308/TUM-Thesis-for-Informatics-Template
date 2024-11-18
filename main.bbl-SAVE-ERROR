@@ -2233,6 +2233,223 @@
       \field{title}{Representation learning over dynamic graphs}
       \field{year}{2018}
     \endentry
+    \entry{zhu2017next}{inproceedings}{}
+      \name{author}{7}{}{%
+        {{un=1,uniquepart=given,hash=1a4cc60974837e41def809152b6f9b88}{%
+           family={Zhu},
+           familyi={Z\bibinitperiod},
+           given={Yu},
+           giveni={Y\bibinitperiod},
+           givenun=1}}%
+        {{un=0,uniquepart=base,hash=2620b9afd37cca5b9b7354f67c036d4d}{%
+           family={Li},
+           familyi={L\bibinitperiod},
+           given={Hao},
+           giveni={H\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=8737dc4ee6f533ab7cd2a164789a7684}{%
+           family={Liao},
+           familyi={L\bibinitperiod},
+           given={Yikang},
+           giveni={Y\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=94c571117025c2192d95fa30e8a21520}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Beidou},
+           giveni={B\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=4c2731b9f3f93b5542df00802700ff72}{%
+           family={Guan},
+           familyi={G\bibinitperiod},
+           given={Ziyu},
+           giveni={Z\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=3c1b78c51effc93277a04ce75c58422a}{%
+           family={Liu},
+           familyi={L\bibinitperiod},
+           given={Haifeng},
+           giveni={H\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=d927549489c087f3c02a85fa0c042bf9}{%
+           family={Cai},
+           familyi={C\bibinitperiod},
+           given={Deng},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{d0361f16960b31dd515756b903f35bb9}
+      \strng{fullhash}{5c72b15dd0a89c3e82f293cbf91e465e}
+      \strng{bibnamehash}{5c72b15dd0a89c3e82f293cbf91e465e}
+      \strng{authorbibnamehash}{5c72b15dd0a89c3e82f293cbf91e465e}
+      \strng{authornamehash}{d0361f16960b31dd515756b903f35bb9}
+      \strng{authorfullhash}{5c72b15dd0a89c3e82f293cbf91e465e}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{What to do next: Modeling user behaviors by time-LSTM.}
+    \endentry
+    \entry{baytas2017patient}{inproceedings}{}
+      \name{author}{6}{}{%
+        {{un=0,uniquepart=base,hash=2391667010e84e7046d83cefd5213f53}{%
+           family={Baytas},
+           familyi={B\bibinitperiod},
+           given={Inci\bibnamedelima M},
+           giveni={I\bibinitperiod\bibinitdelim M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=9b4605842899eab30ddb2a73f729b447}{%
+           family={Xiao},
+           familyi={X\bibinitperiod},
+           given={Cao},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+        {{un=1,uniquepart=given,hash=cbe8786ed671a7d1bcc71d6c1420229f}{%
+           family={Zhang},
+           familyi={Z\bibinitperiod},
+           given={Xi},
+           giveni={X\bibinitperiod},
+           givenun=1}}%
+        {{un=0,uniquepart=base,hash=60af9bc009f709103e587bb92cee1cda}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Fei},
+           giveni={F\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=cd01587a47d1084d2adebe55a57d1c5c}{%
+           family={Jain},
+           familyi={J\bibinitperiod},
+           given={Anil\bibnamedelima K},
+           giveni={A\bibinitperiod\bibinitdelim K\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=dc052a305aff8c80b5b2c417f269f10d}{%
+           family={Zhou},
+           familyi={Z\bibinitperiod},
+           given={Jiayu},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{fa6a65e0d8fe5e1255d92d83d560bb6b}
+      \strng{fullhash}{e1a979644e7e4955f4be68274d9677e7}
+      \strng{bibnamehash}{e1a979644e7e4955f4be68274d9677e7}
+      \strng{authorbibnamehash}{e1a979644e7e4955f4be68274d9677e7}
+      \strng{authornamehash}{fa6a65e0d8fe5e1255d92d83d560bb6b}
+      \strng{authorfullhash}{e1a979644e7e4955f4be68274d9677e7}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the 23rd ACM SIGKDD international conference on knowledge discovery and data mining}
+      \field{title}{Patient subtyping via time-aware LSTM networks}
+      \field{year}{2017}
+      \field{pages}{65\bibrangedash 74}
+      \range{pages}{10}
+    \endentry
+    \entry{10.1145/3159652.3159727}{inproceedings}{}
+      \name{author}{7}{}{%
+        {{un=0,uniquepart=base,hash=af12cc8ca94c1e303f4ae44f22264508}{%
+           family={Beutel},
+           familyi={B\bibinitperiod},
+           given={Alex},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=0169f2fa7857fb3f84d58bffdd4ab3f6}{%
+           family={Covington},
+           familyi={C\bibinitperiod},
+           given={Paul},
+           giveni={P\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=e200e920956cf65d3776186dd4be76c1}{%
+           family={Jain},
+           familyi={J\bibinitperiod},
+           given={Sagar},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=f3bb8eb87183b807e5d23ef23b85cd92}{%
+           family={Xu},
+           familyi={X\bibinitperiod},
+           given={Can},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=508f0a4e80af71a1970f575437811489}{%
+           family={Li},
+           familyi={L\bibinitperiod},
+           given={Jia},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=550edc0cb6da4dea10424eb36743d4aa}{%
+           family={Gatto},
+           familyi={G\bibinitperiod},
+           given={Vince},
+           giveni={V\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=594b2be737e055817db9ad276b6bf05a}{%
+           family={Chi},
+           familyi={C\bibinitperiod},
+           given={Ed\bibnamedelima H.},
+           giveni={E\bibinitperiod\bibinitdelim H\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{location}{1}{%
+        {Marina Del Rey, CA, USA}%
+      }
+      \list{publisher}{1}{%
+        {Association for Computing Machinery}%
+      }
+      \strng{namehash}{b871c8cae66c458ad0c3f50af578f4ca}
+      \strng{fullhash}{1464bdb4bd3f01f7103cc17ce6b2461f}
+      \strng{bibnamehash}{1464bdb4bd3f01f7103cc17ce6b2461f}
+      \strng{authorbibnamehash}{1464bdb4bd3f01f7103cc17ce6b2461f}
+      \strng{authornamehash}{b871c8cae66c458ad0c3f50af578f4ca}
+      \strng{authorfullhash}{1464bdb4bd3f01f7103cc17ce6b2461f}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{The success of recommender systems often depends on their ability to understand and make use of the context of the recommendation request. Significant research has focused on how time, location, interfaces, and a plethora of other contextual features affect recommendations. However, in using deep neural networks for recommender systems, researchers often ignore these contexts or incorporate them as ordinary features in the model.In this paper, we study how to effectively treat contextual data in neural recommender systems. We begin with an empirical analysis of the conventional approach to context as features in feed-forward recommenders and demonstrate that this approach is inefficient in capturing common feature crosses. We apply this insight to design a state-of-the-art RNN recommender system. We first describe our RNN-based recommender system in use at YouTube. Next, we offer "Latent Cross," an easy-to-use technique to incorporate contextual data in the RNN by embedding the context feature first and then performing an element-wise product of the context embedding with model's hidden states. We demonstrate the improvement in performance by using this Latent Cross technique in multiple experimental settings.}
+      \field{booktitle}{Proceedings of the Eleventh ACM International Conference on Web Search and Data Mining}
+      \field{isbn}{9781450355810}
+      \field{series}{WSDM '18}
+      \field{title}{Latent Cross: Making Use of Context in Recurrent Recommender Systems}
+      \field{year}{2018}
+      \field{pages}{46\bibrangedash 54}
+      \range{pages}{9}
+      \verb{doi}
+      \verb 10.1145/3159652.3159727
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1145/3159652.3159727
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1145/3159652.3159727
+      \endverb
+      \keyw{contextual recommendation,recommender system,recurrent neural network}
+    \endentry
+    \entry{rajaraman2011mining}{misc}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=45500b3dfad3d2cf0ce07cd00149af68}{%
+           family={Rajaraman},
+           familyi={R\bibinitperiod},
+           given={Anand},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Cambridge University Press}%
+      }
+      \strng{namehash}{45500b3dfad3d2cf0ce07cd00149af68}
+      \strng{fullhash}{45500b3dfad3d2cf0ce07cd00149af68}
+      \strng{bibnamehash}{45500b3dfad3d2cf0ce07cd00149af68}
+      \strng{authorbibnamehash}{45500b3dfad3d2cf0ce07cd00149af68}
+      \strng{authornamehash}{45500b3dfad3d2cf0ce07cd00149af68}
+      \strng{authorfullhash}{45500b3dfad3d2cf0ce07cd00149af68}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Mining of massive datasets}
+      \field{year}{2011}
+    \endentry
   \enddatalist
 \endrefsection
 \endinput
