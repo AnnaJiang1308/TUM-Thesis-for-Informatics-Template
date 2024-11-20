@@ -10,7 +10,7 @@ This chapter will follow the pipeline of the whole work, as shown in figure \ref
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{figures/04_pipeline.png}
-    \caption{pipeline of the whole work}
+    \caption{Pipeline of the whole work}
     \label{fig:pipeline}
 \end{figure}
 
@@ -188,7 +188,7 @@ Here the vector $1+\mathbf{w}$ is a temporal attention to scale the past user em
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\linewidth]{figures/04_JODIE.png}
+    \includegraphics[width=\linewidth]{figures/04_JODIE.png}
     \caption{JODIE Model Architecture}
     \label{fig:JODIE}
 \end{figure}
@@ -228,7 +228,7 @@ In the original paper, the authors also propose an extension of JODIE for predic
 \subsection{Adapting JODIE to Enhance Interaction State Prediction}
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\linewidth]{figures/04_JODIE_with_state.png}
+    \includegraphics[width=\linewidth]{figures/04_JODIE_with_state.png}
     \caption{JODIE Model Architecture with State Prediction}
     \label{fig:JODIE_with_state}
 \end{figure}
@@ -244,13 +244,50 @@ Returning to our initial goal, the primary objective is to predict the behavior 
 
 Similar to other matrices, $W^u_4$ and $W^i_4$ are also learnable parameters. Their values, denoted as $s$, have been enumerated in the previous steps and undergo a linear transformation before being incorporated into the embedding space. This adaptation enhances the representation of the embedding spaces for both the user $u$ and the item $i$, providing additional information crucial for predicting the behavior state in future interactions. This modification is then integrated into the prediction function, which is updated as follows:
 
-$$\tilde{j}(t+\Delta)=W_1\hat{u}(t+\delta)+W_2\bar{u}+W_3i(t+\Delta ^-)+W_4\bar{i}+W_5s+B$$
+\[ \tilde{j}(t+\Delta)=W_1\hat{u}(t+\delta)+W_2\bar{u}+W_3i(t+\Delta ^-)+W_4\bar{i}+W_5s+B \]
 
 To meet the final goal of predicting the behavior state, the loss function's output  of potential edge appearance should be converted from a binary classification(if the user will interact with the item) to a multi-class classification (either the user won't interact with this item, or one kind of interaction would be taken place here). In a mathematic representation, the domain of the output would convert from a binary set $\{0,1\}$ to a set of $n$ classes ${0,s_1,s_2,s_3,s_4}$. In this case, the cross-entropy loss function is used to calculate the difference between the predicted and actual behavior states. 
 
 
 
+Several steps are required to adapt the model for this task:
+\begin{description}
+    \item[update the prediction Mechanism]
+    In the original model, predictions are made using a fully connected linear layer. However, in our case, the requirement is to determine the correct relationship between two nodes, $u \in \mathcal{U} $ and $i \in \mathcal{I} $. This relationship falls into one of five categories: no connection, or connections labeled with $s_1$ through $s_4$. Consequently, the embedding space needs to be transformed into a 5-dimensional vector. To extract the predicted probability $p(t)$, the output of the linear layer is passed through a softmax function, obtaining a probability distribution over the behavior states.
+    \[ p(t)=softmax(W \tilde{j}(t) + b)\]
 
+    Here $W$ is a learnable parameter matrix and $b$ is a bias term, the probability distribution $p \in \mathbb{R} ^{5 \times n}$ to match the dimension of the output.
+    \item[Cross-Entropy loss] 
+    
+    The Cross-Entropy loss for a single interaction is expressed as:
+    \[ \text{Loss}_{CE} = -\sum_{k=1}^{5} y_k \log p_k(t) \]
+    where $y_k$ is the ground truth label of the behavior state, and $p_k(t)$ is the predicted probability of the behavior state. The total loss is the sum of the losses for all interactions in the dataset.
+    
+    
+    \item[Integrate into the overall loss function] 
+    
+    Incorporating this into the overall loss function, the updated objective becomes:
 
+    \begin{equation}
+        \text{Loss} = \sum_{(u, i, t, f) \in S} \text{Loss}_{CE}(t)
+        + \lambda_U \left\| \mathbf{u}(t) - \mathbf{u}(t^-) \right\|_2 
+        + \lambda_I \left\| \mathbf{i}(t) - \mathbf{i}(t^-) \right\|_2
+        \end{equation}
+    where $\sum_{(u, i, t, f) \in S}$ ensures accurate classification of the behavior, and the regularization terms, scaled by parameters $\lambda_U$ and $\lambda_I$ control the smooth evolution of the user and item embeddings over time.
+\end{description}
 
-\section{abnormal detection}
+Though simply conducting \textbf{$L_2$ loss function} for 5 times may also be a choice, however, $L_2$ only works well or regression tasks or similarity-based optimization (as in the original \textit{JODIE}), and may ignore the corresponding relation in our task when several classes are involved. Therefore, we choose \textbf{Cross-Entropy loss} to optimize the model.
+
+\clearpage
+\section{Abnormal detection}
+
+After adequate training, our model could competent behavior prediction for individual driver in most situations. The next step is to apply our model to alert any potential emergency by detecting abnormal behavior. The process is illustrated in figure \ref{fig:anormal_detection}.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\linewidth]{figures/04_anormal_detection.png}
+    \caption{Abnormal Detection Process}
+    \label{fig:anormal_detection}
+\end{figure}
+
+Suppose the vehicle equipped with our model also has a camera to film the driver's behavior. The video will be processed to generate the dynamic graph, and the model will predict the behavior state of the driver.
+Starting at the point when the prediction begins, a comparison will take place in each timestamp afterwords. Once the predicted behavior state is different from the actual behavior state, the model will draw attention to it immediately. Once this anomaly accumulates to some threshold, the model will alert the driver or the system to take action.
