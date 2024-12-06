@@ -2,10 +2,25 @@
 
 
 \section{diverse dataset}
-% TODO: 
 
-\section{more complex graph for learning}
-% TODO:
+The dataset utilized in this work is the \textbf{Drive\&Act} dataset, which is specifically designed to distinguish between closely related actions. However, this dataset is not extensive enough to encompass the wide range of actions that could occur during driving. With only approximately 30 minutes of video data per participant, the dataset is insufficient for training complex models, particularly graph neural networks (GNNs), which typically require a larger volume of diverse features for effective learning.
 
-\section{combination with hardware}
-% TODO:
+Enhancements to the training dataset could be achieved in several ways. For instance, collecting longer video recordings under varied conditions, such as daytime versus nighttime driving, different weather scenarios, or driving in distinct environments like traffic jams, highways, or suburban areas, would enrich the dataset. Additionally, the granularity of action descriptions could be improved. Currently, the dataset treats all detected actions equally, without emphasizing driving-related actions. As the ultimate goal is to identify and alert for potentially dangerous behaviors during driving, greater focus on documenting and categorizing driving-specific actions in detail could enhance model performance.
+
+A more diverse and intentionally curated dataset would be highly beneficial for our task, enabling the development of models capable of more accurate and detailed predictions regarding driving behaviors. Such improvements could significantly advance the application of machine learning in promoting road safety.
+
+\section{Enhanced Graph Structures for Improved Learning}
+
+In this work, we employed a simple dynamic graph representation to model the interactions between objects and participants in the video data. However, capturing the complexity of human behavior and the intricate relationships between actions and objects requires a more sophisticated graph structure. Currently, the attribution levels and feature matrices in our approach remain relatively sparse. Incorporating additional considerations, such as object types and personal preferences, could enrich the latent information within the graph.
+
+Moreover, applying attention mechanisms during the graph's early updates could enhance the model's ability to focus on individualized learning for different participants. While it is important to minimize redundancy, the model must also capture the unique characteristics of each participant and object to improve prediction accuracy and ensure a more nuanced understanding of interactions.
+
+
+
+\section{Real-World Application and Integration Challenges}
+The ultimate target for our model is its deployment within autonomous driving systems. To achieve this, considerations must extend beyond algorithmic performance to address hardware compatibility and system integration. The computational requirements of the model must align with the capabilities of the vehicle's MCU, ensuring feasible memory and processing costs. Furthermore, seamless communication and data exchange between system components, such as cameras, sensors, and computational units, present a significant challenge.
+
+The model must integrate smoothly into the existing infrastructure, operating in real-time to deliver timely and accurate predictions. Perception-level devices would extract data and transform it into dynamic graphs, which the model would then process for actionable insights. Real-time operation is critical for ensuring safety, as any delay could compromise the system's effectiveness.
+
+While real-world implementation poses challenges, including data stream management and optimization for constrained hardware, the model's potential for enhancing autonomous driving safety makes overcoming these hurdles a valuable pursuit.
+

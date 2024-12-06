@@ -172,7 +172,12 @@ Although HMM offers a minimalist approach to the problem and demonstrates potent
 
 \clearpage
 \section{Impact of State Embeddings}
-Finally, we evaluate our proposed approach—JODIE with integrated state embeddings. The results, presented in Figure~\ref{fig:JODIE_state_embedding_results}, are derived from training the model on the same dataset as the original JODIE model, with the sole modification being the inclusion of state embeddings.
+Finally, we evaluate our proposed approach: JODIE with integrated state embeddings. The results, presented in Figure~\ref{fig:JODIE_state_embedding_results}, are derived from training the model on the same dataset as the original JODIE model, with the sole modification being the inclusion of state embeddings.
+
+The inclusion of state embeddings in the model unsurprisingly results in a drop in AUROC and AP scores. This can be attributed to the increased complexity of the model and the introduction of additional features. However, the model continues to perform well in dynamic graph prediction, as no significant failures are observed across prediction tasks. Interestingly, the combined graph, which aggregates data from multiple participants, achieves a higher AUROC score than several single-participant graphs. This provides strong evidence that the model is capable of generalizing predictions to larger datasets. Looking ahead, this suggests that incorporating more diverse models or larger datasets could further enhance its robustness. At the same time, it hints at possible underfitting in certain training runs, where the available dataset may not be sufficient for the model’s sophisticated structure. The fact that the overall AP score is lower than the AUROC score may also support this argument. This discrepancy can be attributed to the nature of the two metrics. While AUROC focuses on the model's ability to distinguish between classes, AP emphasizes the ranking quality of positive instances over negatives. In the context of our study, the lower AP score suggests that the model pooly ranks the true positives or generates many false positives, which may be due to the complexity of the dataset and the model's inability to capture the underlying patterns.Encouragingly, the both facts highlight the model’s latent computational potential, which remains to be fully realized in the future study.
+
+Another notable observation is the model’s superior performance in predicting new nodes compared to old ones. This aligns with the conclusion that state embeddings enhance the model’s sequential prediction capabilities. For our primary task of identifying potential driving risks, accurate prediction of new nodes is especially critical, as unexpected or previously unseen items often pose a greater hazard. Given that drivers tend to repeat their actions, the ability to reliably detect new nodes underscores the model’s importance and effectiveness in addressing safety-critical scenarios.
+
 \begin{figure}[h]
     \centering
     \includegraphics[width=\textwidth]{figures/05_JODIE_with_state.png}
@@ -180,21 +185,16 @@ Finally, we evaluate our proposed approach—JODIE with integrated state embeddi
     \label{fig:JODIE_state_embedding_results}
 \end{figure}
 
-
-
-
-The inclusion of state embeddings in the model unsurprisingly results in a drop in AUROC and AP scores. This can be attributed to the increased complexity of the model and the introduction of additional features. However, the model continues to perform well in dynamic graph prediction, as no significant failures are observed across prediction tasks. Interestingly, the combined graph, which aggregates data from multiple participants, achieves a higher AUROC score than several single-participant graphs. This provides strong evidence that the model is capable of generalizing predictions to larger datasets. Looking ahead, this suggests that incorporating more diverse models or larger datasets could further enhance its robustness. At the same time, it hints at possible underfitting in certain training runs, where the available dataset may not be sufficient for the model’s sophisticated structure. Encouragingly, this also highlights the model’s latent computational potential, which remains to be fully realized.
-
-Another notable observation is the model’s superior performance in predicting new nodes compared to old ones. This aligns with the conclusion that state embeddings enhance the model’s sequential prediction capabilities. For our primary task of identifying potential driving risks, accurate prediction of new nodes is especially critical, as unexpected or previously unseen items often pose a greater hazard. Given that drivers tend to repeat their actions, the ability to reliably detect new nodes underscores the model’s importance and effectiveness in addressing safety-critical scenarios.
-
-
-
-% TODO:discuss why AP is lower than AUROC, start from the definition of AP and AUROC
-
-
+\clearpage
 % TODO:yet still our work is much better than HMM
 
-\begin{figure}[h]
+For the comparison between our model and the HMM model, the results are shown in Figure~\ref{fig:JODIE_state_HMM_AUROC} and Figure~\ref{fig:JODIE_state_HMM_AP}. A random result pair from the previous HMM training is selected for reference. The JODIE model with state embeddings consistently outperforms the HMM model across all videos in terms of AUROC scores. Regarding AP scores, while the HMM model occasionally surpasses our approach in certain cases, our model demonstrates superior performance in many situations. This highlights the greater stability of our model compared to traditional methods, as the variance in results is significantly lower than that of HMM. Furthermore, the findings emphasize the limitations of traditional models like HMM in managing complex, dynamic datasets, reinforcing the necessity of advanced techniques such as JODIE with state embeddings.
+
+Additional evidence supporting the stability of our model across different runs can be found in the Appendix\ref{chapter:appendixB}. These results demonstrate that our model is not generating predictions at random but instead identifies and summarizes consistent patterns and features from the dataset. This consistency further underscores the robustness of our approach and its ability to generalize effectively.
+
+\clearpage
+
+\begin{figure}
     \centering
     \includegraphics[width=\textwidth]{figures/05_JODIE_state_HMM_AUROC.png}
     \caption{summery of JODIE with State Embedding}
@@ -203,9 +203,10 @@ Another notable observation is the model’s superior performance in predicting 
 
 
 
-\begin{figure}[h]
+\begin{figure}
     \centering
     \includegraphics[width=\textwidth]{figures/05_JODIE_state_HMM_AP.png}
     \caption{summery of JODIE with State Embedding}
     \label{fig:JODIE_state_HMM_AP}
 \end{figure}
+
