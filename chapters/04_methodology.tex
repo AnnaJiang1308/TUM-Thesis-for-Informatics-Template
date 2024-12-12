@@ -3,9 +3,9 @@
 
 % NOTE: add HMM as baseline
 
-This work aims to construct a graph neural network based architecture for predicting, analyzing, and detecting any potentially abnormal behavior regarding the driver during the whole driving process. In particular, The model extracts a description graph, the so-called scene graph, of the driver from the video filmed inside the vehicle and trains itself with these data to learn for future behavior prediction. The result will be used to compare and detect any abnormal behavior. Here we would lay most emphasis on the construction of the training model. To make precious anomaly detection we aim to predict not only if there is a behavior between humans and a specific kind of object but the type of behavior as well, which will cause several adaptions based on existing model \textit{JODIE}. 
+This work aims to construct a graph neural network based architecture for predicting, analyzing, and detecting any potentially abnormal behavior regarding the driver during the whole driving process. In particular, The model extracts a description graph, the so-called scene graph, of the driver from the video filmed inside the vehicle and trains itself with these data to learn for future behavior prediction. The result will be used to compare and detect any abnormal behavior. Here I would lay most emphasis on the construction of the training model. To make precious anomaly detection I aim to predict not only if there is a behavior between humans and a specific kind of object but the type of behavior as well, which will cause several adaptions based on existing model \textit{JODIE}. 
 
-This chapter will follow the pipeline of the whole work, as shown in figure \ref{fig:pipeline}. Progressively we would introduce the scene graph generation, the model architecture, and the training process. 
+This chapter will follow the pipeline of the whole work, as shown in figure \ref{fig:pipeline}. Progressively I would introduce the scene graph generation, the model architecture, and the training process. 
 
 \begin{figure}
     \centering
@@ -17,10 +17,10 @@ This chapter will follow the pipeline of the whole work, as shown in figure \ref
 
 \section{Scene graph generation}
 
-The \textbf{Drive \& Act} dataset comprises 12 hours of video data with 15 participators segmented into 29 lengthy sequences. For each sequence, we aim to generate a unique \textbf{dynamic graph} that temporally represents both the participant's actions and the relationships between objects observed in the video. This process involves several key steps.
+The \textbf{Drive \& Act} dataset comprises 12 hours of video data with 15 participators segmented into 29 lengthy sequences. For each sequence, I aim to generate a unique \textbf{dynamic graph} that temporally represents both the participant's actions and the relationships between objects observed in the video. This process involves several key steps.
 
 
-First, by sliding through the video at intervals of $1/15$ second, we obtain a series of images. Theoretically, each image could yield a corresponding graph with the use of an object detection model \cite{tang2020unbiased}. Given that our objective is to predict driver behavior, we concentrate on the driver and the specific objects with which they interact. Consequently, we opt for a streamlined approach by directly extracting data from hierarchical labels within the dataset. Table \ref{tab:hierarchical_labels_task}and table \ref{tab:hierarchical_labels_object} provide an overview of the hierarchical labels. The former one provides the concrete activity descriptions of the driver in specific time frames, while the latter one outlines the objects the driver interacts with, along with the corresponding locations where these interactions occur.
+First, by sliding through the video at intervals of $1/15$ second, I obtain a series of images. Theoretically, each image could yield a corresponding graph with the use of an object detection model \cite{tang2020unbiased}. Given that our objective is to predict driver behavior, I concentrate on the driver and the specific objects with which they interact. Consequently, I opt for a streamlined approach by directly extracting data from hierarchical labels within the dataset. Table \ref{tab:hierarchical_labels_task}and table \ref{tab:hierarchical_labels_object} provide an overview of the hierarchical labels. The former one provides the concrete activity descriptions of the driver in specific time frames, while the latter one outlines the objects the driver interacts with, along with the corresponding locations where these interactions occur.
 
 \clearpage
 
@@ -70,11 +70,11 @@ First, by sliding through the video at intervals of $1/15$ second, we obtain a s
     
 
 
-However, these tables alone are insufficient for generating graphs, as object detection at each individual timestamp is required to ensure data completeness. In another word, the row \textit{start time} and \textit{end time} will be replaced by \textit{Timestamp}. To address this, we construct the dynamic graph by processing each timestamp sequentially. Specifically, the participant is designated as the node $u$, and all relevant objects are represented as nodes $i$. By analyzing interactions at each timestamp, edges are added between the participant node and the corresponding object nodes to represent the associated actions. Additionally, the features of the edges are enriched with the location where each action occurs. The graph is iteratively updated with each subsequent timestamp, ultimately resulting in a dynamic graph that captures the temporal evolution of interactions.
+However, these tables alone are insufficient for generating graphs, as object detection at each individual timestamp is required to ensure data completeness. In another word, the row \textit{start time} and \textit{end time} will be replaced by \textit{Timestamp}. To address this, I construct the dynamic graph by processing each timestamp sequentially. Specifically, the participant is designated as the node $u$, and all relevant objects are represented as nodes $i$. By analyzing interactions at each timestamp, edges are added between the participant node and the corresponding object nodes to represent the associated actions. Additionally, the features of the edges are enriched with the location where each action occurs. The graph is iteratively updated with each subsequent timestamp, ultimately resulting in a dynamic graph that captures the temporal evolution of interactions.
     
 
 
-Another key consideration in graph generation is the classification of activity labels. The raw dataset contains 39 distinct behaviors, which would be computationally intensive and overly too trivial to label directly. To address this, we employ \textit{BART}, a denoising autoencoder designed for pretraining sequence-to-sequence models, to cluster these behaviors into four categories. This classification is based on two key questions: whether the behavior is related to driving and whether it implies any potential risk, as the ultimate goal is to identify and flag abnormal behaviors. The resulting behavior classifications are presented in Table \ref{tab:Behavior classification}.
+Another key consideration in graph generation is the classification of activity labels. The raw dataset contains 39 distinct behaviors, which would be computationally intensive and overly too trivial to label directly. To address this, I employ \textit{BART}, a denoising autoencoder designed for pretraining sequence-to-sequence models, to cluster these behaviors into four categories. This classification is based on two key questions: whether the behavior is related to driving and whether it implies any potential risk, as the ultimate goal is to identify and flag abnormal behaviors. The resulting behavior classifications are presented in Table \ref{tab:Behavior classification}.
 
 \begin{figure}[h]
     \centering
@@ -135,16 +135,16 @@ As illustration of heads of this table is as following:
 \end{description}
 
 
-% we classify and label the behavior with LLM
+% I classify and label the behavior with LLM
 
 \section{Baseline: Hidden Markov Model (HMM)}
 
 
 The Hidden Markov Model (HMM) is a suitable baseline for our driver behavior prediction task due to its effectiveness in modeling temporal sequences with underlying hidden states, allowing it to capture the evolving patterns of driver behavior over time. HMMs provide a probabilistic framework that handles uncertainty in sequential data, making them a widely adopted baseline for tasks involving sequence prediction, including applications in graph neural network (GNN) models. In our work, this baseline serves as a foundation for comparison, particularly given that our hybrid model does not align directly with more complex modern models, which may lack sufficient parallels for a direct comparison.
 
-To perform the prediction task, we first extract the temporal sequence from the dynamic graph data. In this context, the state represents a classification of similar behaviors observed within the dataset, while the features encapsulate consequential representations that may influence future observations. Thus, we set the value \textit{state label} as the observation sequence and the \textit{feature} as the hidden state, see in figure\ref{fig:HMMmodel}.
+To perform the prediction task, I first extract the temporal sequence from the dynamic graph data. In this context, the state represents a classification of similar behaviors observed within the dataset, while the features encapsulate consequential representations that may influence future observations. Thus, I set the value \textit{state label} as the observation sequence and the \textit{feature} as the hidden state, see in figure\ref{fig:HMMmodel}.
 
-With the help of the library \textit{hmmlearn}, we can train the model with the extracted data and predict the state of the next timestamp. Comparing the predicted state with the actual state, we can evaluate the performance of HMM. And the result will be used as a baseline for the following models.
+With the help of the library \textit{hmmlearn}, I can train the model with the extracted data and predict the state of the next timestamp. Comparing the predicted state with the actual state, I can evaluate the performance of HMM. And the result will be used as a baseline for the following models.
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\linewidth]{figures/04_HMMmodel.png}
@@ -157,7 +157,7 @@ With the help of the library \textit{hmmlearn}, we can train the model with the 
 
 \subsection{Introduction to JODIE}
 % what is JODIE
-As is mentioned in chapter \ref{chapter:relatedwork}, the model \textit{JODIE} is a coupled recurrent neural network model that learns the embedding trajectories of users and items. Before we start our own contribution to the model, some introduction to the original model is necessary.
+As is mentioned in chapter \ref{chapter:relatedwork}, the model \textit{JODIE} is a coupled recurrent neural network model that learns the embedding trajectories of users and items. Before I start our own contribution to the model, some introduction to the original model is necessary.
 
 The model \textit{JODIE} is aimed at learning the embedding trajectories of users, denoted as $\mathbf{u(t)} \in \mathbb{R} ^n$ for each $u \in \mathcal{U}$ and item, denoted as $\mathbf{i(t)} \in \mathbb{R} ^n$ for each $i \in \mathcal{I} $, over a time interval $\forall t \in [0,T] $. These embeddings are derived from an ordered sequence of temporal user-item interactions $S_r=(u_r,i_r,t_r,\mathbb{f}_r)$, which indicates that an interaction $S_r$ involving a user $u_r \in \mathcal{U} $ and an item $i_r \in \mathcal{I} $ at time $t_r \in \mathbb{R} ^+$, in the period $0 < t_1 < t_2< \cdots  < T$. In our study, the \textit{user} corresponds to the driver, and the \textit{item} to the object of which the action will take place. The process of interaction thus represents the driver’s behavior toward the object over time.
 
@@ -184,7 +184,7 @@ In order to effectively embed time-sequence data, the method \textit{LatentCross
 
 \[ \hat{u}(t+ \Delta) = (1+\mathbf{w})*\mathbf{u(t)} \]
 
-Here the vector $1+\mathbf{w}$ is a temporal attention to scale the past user embedding. According to the original \textit{LatentCross} work, a linear layer is optimal for projecting the embedding, as introducing non-linearity can distort the embedding. Consequently, we retain this linear layer in our implementation.
+Here the vector $1+\mathbf{w}$ is a temporal attention to scale the past user embedding. According to the original \textit{LatentCross} work, a linear layer is optimal for projecting the embedding, as introducing non-linearity can distort the embedding. Consequently, I retain this linear layer in our implementation.
 
 \begin{figure}[h]
     \centering
@@ -197,7 +197,7 @@ Here the vector $1+\mathbf{w}$ is a temporal attention to scale the past user em
 
 \subsection{Training Process of JODIE}
 
-Let $u$ interact with item $i$ at time $j$ and then with item $j$ at time $t + \Delta$. Right before $t + \Delta$, can we predict which item u will interact with? We use this task to train the update and projection operations in JODIE. We train JODIE to make this prediction using u’s projected embedding $ \hat{u}(t+ \Delta)$. Rather than computing the interaction probability between each user $u$ and item $i$, \textit{JODIE} directly outputs an item embedding vector $\tilde{j}(t + \Delta)$. This approach allows \textit{JODIE} to make predictions with a single forward pass of the prediction layer, significantly reducing computational demands during inference by bypassing additional neural network passes. Using Locality Sensitive Hashing (LSH) techniques \cite{rajaraman2011mining}, we can then retrieve the item with the closest embedding in near-constant time.
+Let $u$ interact with item $i$ at time $j$ and then with item $j$ at time $t + \Delta$. Right before $t + \Delta$, can I predict which item u will interact with? I use this task to train the update and projection operations in JODIE. I train JODIE to make this prediction using u’s projected embedding $ \hat{u}(t+ \Delta)$. Rather than computing the interaction probability between each user $u$ and item $i$, \textit{JODIE} directly outputs an item embedding vector $\tilde{j}(t + \Delta)$. This approach allows \textit{JODIE} to make predictions with a single forward pass of the prediction layer, significantly reducing computational demands during inference by bypassing additional neural network passes. Using Locality Sensitive Hashing (LSH) techniques \cite{rajaraman2011mining}, I can then retrieve the item with the closest embedding in near-constant time.
 
 Thus, \textit{J} is trained to minimize the $L_2$ difference between the predicted item embedding $\tilde{j}(t + \Delta)$ and the real item embedding $[\overline{j}, j(t + \Delta^-)]$. The latter is a concatencation of the static embedding $\overline{j}$ and the dynamic embedding $j(t + \Delta^-)$ that immediately before time $t+\Delta$. The loss function is defined as follows:
 \[ \| \tilde{j}(t + \Delta) - [\overline{j}, j(t + \Delta^-)] \|_2 \]
@@ -234,7 +234,7 @@ In the original paper, the authors also propose an extension of JODIE for predic
 \end{figure}
 
 
-Returning to our initial goal, the primary objective is to predict the behavior of the driver. Therefore, it is essential to account for both the object the driver interacts with and the driver’s behavior toward that object. In the original \textit{JODIE} model, only the object is predicted as the node to which the edge will connect in the subsequent timestamp. However, in our approach, the behavior is represented as the classification of each edge connecting the user and item nodes in the dynamic graph, referred to as the \textit{state} of each edge. Incorporating the \textit{state} into the embedding space and modifying the loss function accordingly enables the prediction of behavior. The proposed adaptations are illustrated in Figure \ref{fig:JODIE_with_state}. To accomplish this, we explicitly add the interaction state into the embeddings of both the user and the item: 
+Returning to our initial goal, the primary objective is to predict the behavior of the driver. Therefore, it is essential to account for both the object the driver interacts with and the driver’s behavior toward that object. In the original \textit{JODIE} model, only the object is predicted as the node to which the edge will connect in the subsequent timestamp. However, in our approach, the behavior is represented as the classification of each edge connecting the user and item nodes in the dynamic graph, referred to as the \textit{state} of each edge. Incorporating the \textit{state} into the embedding space and modifying the loss function accordingly enables the prediction of behavior. The proposed adaptations are illustrated in Figure \ref{fig:JODIE_with_state}. To accomplish this, I explicitly add the interaction state into the embeddings of both the user and the item: 
 
 
 \[ \mathbf{u(t)} = \sigma (W_1^u \mathbf{u(t^-)} + W_2^u \mathbf{i(t^-)} + W_3^u \mathbf{f} + W^u_4s+W^u_5\Delta _u) \]
@@ -276,7 +276,7 @@ Several steps are required to adapt the model for this task:
     where $\sum_{(u, i, t, f) \in S}$ ensures accurate classification of the behavior, and the regularization terms, scaled by parameters $\lambda_U$ and $\lambda_I$ control the smooth evolution of the user and item embeddings over time.
 \end{description}
 
-Though simply conducting \textbf{$L_2$ loss function} for 5 times may also be a choice, however, $L_2$ only works well or regression tasks or similarity-based optimization (as in the original \textit{JODIE}), and may ignore the corresponding relation in our task when several classes are involved. Therefore, we choose \textbf{Cross-Entropy loss} to optimize the model.
+Though simply conducting \textbf{$L_2$ loss function} for 5 times may also be a choice, however, $L_2$ only works well or regression tasks or similarity-based optimization (as in the original \textit{JODIE}), and may ignore the corresponding relation in our task when several classes are involved. Therefore, I choose \textbf{Cross-Entropy loss} to optimize the model.
 
 \clearpage
 \section{Abnormal detection}
