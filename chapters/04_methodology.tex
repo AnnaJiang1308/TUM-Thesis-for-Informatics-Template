@@ -3,9 +3,9 @@
 
 % NOTE: add HMM as baseline
 
-This work aims to construct a graph neural network based architecture for predicting, analyzing, and detecting any potentially abnormal behavior regarding the driver during the whole driving process. In particular, The model extracts a description graph, the so-called scene graph, of the driver from the video filmed inside the vehicle and trains itself with these data to learn for future behavior prediction. The result will be used to compare and detect any abnormal behavior. Here I would lay most emphasis on the construction of the training model. To make precious anomaly detection I aim to predict not only if there is a behavior between humans and a specific kind of object but the type of behavior as well, which will cause several adaptions based on existing model \textit{JODIE}. 
+This work aims to construct a graph neural network-based architecture for predicting, analyzing, and detecting any potentially abnormal behavior regarding the driver during the whole driving process. In particular, The model extracts a description graph, the so-called scene graph, of the driver from the video filmed inside the vehicle and trains itself with these data to learn for future behavior prediction. The result will be used to compare and detect any abnormal behavior. Here, I would place the most emphasis on the construction of the training model. To make precious anomaly detection, I aim to predict not only if there is a behavior between humans and a specific kind of object but the type of behavior as well, which will cause several adaptions based on existing model \textit{JODIE}. 
 
-This chapter will follow the pipeline of the whole work, as shown in figure \ref{fig:pipeline}. Progressively I would introduce the scene graph generation, the model architecture, and the training process. 
+This chapter will follow the pipeline of the whole work, as shown in figure \ref{fig:pipeline}. Progressively, I would introduce the scene graph generation, the model architecture, and the training process. 
 
 \begin{figure}
     \centering
@@ -26,14 +26,14 @@ First, by sliding through the video at intervals of $1/15$ second, I obtain a se
 
 \begin{longtable}{ccccc}
     \toprule
-    \textbf{file\_id} & \textbf{frame\_start} & \textbf{frame\_end} & \textbf{activity} & \textbf{chunk\_id} \\
+    \textbf{file\_id} & \textbf{frame\_start} & \textbf{frame\_end} & \textbf{activity} \\
     \midrule
-    vp1/run1b.kinect\_color & 40 & 58 & standing\_by\_the\_door & 0 \\
-    vp1/run1b.kinect\_color & 58 & 82 & closing\_door\_outside & 0 \\
-    vp1/run1b.kinect\_color & 83 & 102 & standing\_by\_the\_door & 0 \\
-    vp1/run1b.kinect\_color & 102 & 130 & opening\_door\_outside & 0 \\
-    vp1/run1b.kinect\_color & 130 & 156 & entering\_car & 0 \\
-    vp1/run1b.kinect\_color & 156 & 174 & closing\_door\_inside & 0 \\
+    vp1/run1b.kinect\_color & 40 & 58 & standing\_by\_the\_door \\
+    vp1/run1b.kinect\_color & 58 & 82 & closing\_door\_outside \\
+    vp1/run1b.kinect\_color & 83 & 102 & standing\_by\_the\_door \\
+    vp1/run1b.kinect\_color & 102 & 130 & opening\_door\_outside \\
+    vp1/run1b.kinect\_color & 130 & 156 & entering\_car \\
+    vp1/run1b.kinect\_color & 156 & 174 & closing\_door\_inside \\
     \bottomrule
     \caption{Example of the  task level hierarchical labels Reproduced from\cite{9009583}}
     \label{tab:hierarchical_labels_task}
@@ -124,13 +124,14 @@ Through the processes outlined above, all dynamic graphs have been successfully 
     \label{tab:dynamic_graph_storage}
 \end{table}
 
-As illustration of heads of this table is as following:
+An illustration of the heads of this table is as follows:
 
 \begin{description}
-    \item[u] The action initiator or generator, in our work typically representing the participant or driver.
+    \item[u] The action initiator or generator, in our work, typically represents the participant or driver.
     \item[i] The object or target that is acted upon or influenced by the action.
-    \item[timestamp] The specific moment or time frame at which the action or interaction occurs.
-    \item[stable label] A stable vector that characterizes the consistent attributes or categorical label associated with the edge.
+    \item[timestamp] The specific moment or time frame of action or interaction.
+    %TODO: typo 
+    \item[state label] A state label is an attribute for each edge, it indicates the type of the behavior the participants carry out on the object.
     \item[feature] A weight vector representing the proportion of occurrences for a particular attribute (in this case, the location column), reflecting the relative frequency or appearance percentage of this attribute over time.
 \end{description}
 
@@ -197,9 +198,9 @@ Here the vector $1+\mathbf{w}$ is a temporal attention to scale the past user em
 
 \subsection{Training Process of JODIE}
 
-Let $u$ interact with item $i$ at time $j$ and then with item $j$ at time $t + \Delta$. Right before $t + \Delta$, can I predict which item u will interact with? I use this task to train the update and projection operations in JODIE. I train JODIE to make this prediction using u’s projected embedding $ \hat{u}(t+ \Delta)$. Rather than computing the interaction probability between each user $u$ and item $i$, \textit{JODIE} directly outputs an item embedding vector $\tilde{j}(t + \Delta)$. This approach allows \textit{JODIE} to make predictions with a single forward pass of the prediction layer, significantly reducing computational demands during inference by bypassing additional neural network passes. Using Locality Sensitive Hashing (LSH) techniques \cite{rajaraman2011mining}, I can then retrieve the item with the closest embedding in near-constant time.
+Let $u$ interact with item $i$ at time $j$ and then with item $j$ at time $t + \Delta$. Right before $t + \Delta$, can I predict which item u will interact with? I use this task to train the update and projection operations in JODIE. I train JODIE to make this prediction using u’s projected embedding $ \hat{u}(t+ \Delta)$. Rather than computing the interaction probability between each user $u$ and item $i$, \textit{JODIE} directly outputs an item embedding vector $\tilde{j}(t + \Delta)$ of size two. This approach allows \textit{JODIE} to make predictions with a single forward pass of the prediction layer, significantly reducing computational demands during inference by bypassing additional neural network passes. Using Locality Sensitive Hashing (LSH) techniques \cite{rajaraman2011mining}, I can then retrieve the item with the closest embedding in near-constant time.
 
-Thus, \textit{J} is trained to minimize the $L_2$ difference between the predicted item embedding $\tilde{j}(t + \Delta)$ and the real item embedding $[\overline{j}, j(t + \Delta^-)]$. The latter is a concatencation of the static embedding $\overline{j}$ and the dynamic embedding $j(t + \Delta^-)$ that immediately before time $t+\Delta$. The loss function is defined as follows:
+Thus, \textit{JODIE} is trained to minimize the $L_2$ difference between the predicted item embedding vector $\tilde{j}(t + \Delta)$ and the real item embedding $[\overline{j}, j(t + \Delta^-)]$. The latter is a concatencation of the static embedding $\overline{j}$ and the dynamic embedding $j(t + \Delta^-)$ that immediately before time $t+\Delta$, where $\Delta^-$ is infinitesimal time before $\Delta$. The loss function is defined as follows:
 \[ \| \tilde{j}(t + \Delta) - [\overline{j}, j(t + \Delta^-)] \|_2 \]
 
 As for the prediction, it is mad using a fully connected linear layer as follows:
