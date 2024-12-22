@@ -88,9 +88,9 @@ Another key consideration in graph generation is the classification of activity 
 
 \begin{table}[h]
     \centering
-    \begin{tabular}{ccp{10cm}}
+    \begin{tabular}{ccp{7cm}}
         \toprule
-        \textbf{No.} & \textbf{State} & \textbf{Behaviors} \\
+        \textbf{state label} & \textbf{State} & \textbf{Behaviors} \\
         \midrule
         1 & \textbf{Driving concerned behaviors} & standing by the door, closing door outside, opening door outside, entering car, closing door inside, fastening seat belt, moving towards door, unfastening seat belt, opening door inside, exiting car \\
         \midrule
@@ -117,7 +117,7 @@ Through the processes outlined above, all dynamic graphs have been successfully 
         \toprule
         \textbf{u} & \textbf{i} & \textbf{timestamp} & \textbf{state label} & \textbf{feature} \\
         \midrule
-        1 & 2 & 127 & 0 & 0.27 \\
+        0 & 2 & 3141 & 4 & 0.0843 \\
         \bottomrule
     \end{tabular}
     \caption{Storage of dynamic graph}
@@ -137,13 +137,13 @@ An illustration of the heads of this table is as follows:
 
 
 % I classify and label the behavior with LLM
-
+\clearpage
 \section{Baseline: Hidden Markov Model (HMM)}
 
 
 The Hidden Markov Model (HMM) is a suitable baseline for our driver behavior prediction task due to its effectiveness in modeling temporal sequences with underlying hidden states, allowing it to capture the evolving patterns of driver behavior over time. HMMs provide a probabilistic framework that handles uncertainty in sequential data, making them a widely adopted baseline for tasks involving sequence prediction, including applications in graph neural network (GNN) models. In our work, this baseline serves as a foundation for comparison, particularly given that our hybrid model does not align directly with more complex modern models, which may lack sufficient parallels for a direct comparison.
 
-To perform the prediction task, I first extract the temporal sequence from the dynamic graph data. In this context, the state represents a classification of similar behaviors observed within the dataset, while the features encapsulate consequential representations that may influence future observations. Thus, I set the value \textit{state label} as the observation sequence and the \textit{feature} as the hidden state, see in figure\ref{fig:HMMmodel}.
+The whole prediction task inclouds several steps. I first extract the temporal sequence from the dynamic graph data. In this context, the state represents a classification of similar behaviors observed within the dataset, while the features encapsulate consequential representations that may influence future observations. Thus, I set the value \textit{state label} as the observation sequence and the \textit{feature} as the hidden state. The initial feature $f_0$ is a randomly produced distribution that would be updated based on every observation in the next timestamp. Further illustration could be seen in figure\ref{fig:HMMmodel}. 
 
 With the help of the library \textit{hmmlearn}, I can train the model with the extracted data and predict the state of the next timestamp. Comparing the predicted state with the actual state, I can evaluate the performance of HMM. And the result will be used as a baseline for the following models.
 \begin{figure}[h]
@@ -198,7 +198,9 @@ Here the vector $1+\mathbf{w}$ is a temporal attention to scale the past user em
 
 \subsection{Training Process of JODIE}
 
-Let $u$ interact with item $i$ at time $j$ and then with item $j$ at time $t + \Delta$. Right before $t + \Delta$, can I predict which item u will interact with? I use this task to train the update and projection operations in JODIE. I train JODIE to make this prediction using u’s projected embedding $ \hat{u}(t+ \Delta)$. Rather than computing the interaction probability between each user $u$ and item $i$, \textit{JODIE} directly outputs an item embedding vector $\tilde{j}(t + \Delta)$ of size two. This approach allows \textit{JODIE} to make predictions with a single forward pass of the prediction layer, significantly reducing computational demands during inference by bypassing additional neural network passes. Using Locality Sensitive Hashing (LSH) techniques \cite{rajaraman2011mining}, I can then retrieve the item with the closest embedding in near-constant time.
+The following discussion will be conducted on the basis of a question: Let $u$ interact with the item $i$ at time $t$ and then with the item $j$ at time $t + \Delta$. Right before $t + \Delta$, can I predict which item u will interact with?
+
+I use this task to train the update and projection operations in JODIE. I train JODIE to make this prediction using u’s projected embedding $ \hat{u}(t+ \Delta)$. Rather than computing the interaction probability between each user $u$ and item $i$, \textit{JODIE} directly outputs an item embedding vector $\tilde{j}(t + \Delta)$ of size two. This approach allows \textit{JODIE} to make predictions with a single forward pass of the prediction layer, significantly reducing computational demands during inference by bypassing additional neural network passes. Using Locality Sensitive Hashing (LSH) techniques \cite{rajaraman2011mining}, I can then retrieve the item with the closest embedding in near-constant time.
 
 Thus, \textit{JODIE} is trained to minimize the $L_2$ difference between the predicted item embedding vector $\tilde{j}(t + \Delta)$ and the real item embedding $[\overline{j}, j(t + \Delta^-)]$. The latter is a concatencation of the static embedding $\overline{j}$ and the dynamic embedding $j(t + \Delta^-)$ that immediately before time $t+\Delta$, where $\Delta^-$ is infinitesimal time before $\Delta$. The loss function is defined as follows:
 \[ \| \tilde{j}(t + \Delta) - [\overline{j}, j(t + \Delta^-)] \|_2 \]

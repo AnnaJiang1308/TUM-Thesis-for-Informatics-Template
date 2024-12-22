@@ -1,14 +1,14 @@
 \chapter{Evaluation}\label{chapter:evaluation}
 
-In the previous chapter(Chapter~\ref{chapter:methodology}), we detailed the entire workflow and underlying mechanisms of our proposed model. This chapter focuses on the evaluation of the results obtained throughout the study, providing an analysis of the model's performance and reasoning about the outcomes achieved.
+In the previous chapter(Chapter~\ref{chapter:methodology}), we detailed our proposed model's entire workflow and underlying mechanisms. This chapter focuses on evaluating the results obtained throughout the study, providing an analysis of the model's performance and reasoning about the outcomes achieved.
 
 Given that abnormal behavior detection is just one potential application of the developed model, the evaluation emphasizes its overall performance. Specifically, this chapter will compare results across different models applied to the same video, analyze the performance of the JODIE model on individual videos, evaluate the baseline results using Hidden Markov Models (HMM), and assess the impact of incorporating state embeddings into the JODIE framework.
 
-Table~\ref{tab:dataset_statistic} and figure \ref{fig:dataset_statistic} offers an overview of the dataset used in the study. The dataset originates from experimental videos recorded with 15 participants, each contributing approximately two videos. The duration of each video ranges from 20 to 40 minutes, with each video containing around 13 to 16 nodes and 5000 to 15000 edges.
+Table~\ref{tab:dataset_statistic} and figure \ref{fig:dataset_statistic} offers an overview of the dataset used in the study. The dataset originates from experimental videos recorded with 15 participants, each contributing approximately two videos. The duration of each video ranges from 20 to 40 minutes, containing around 13 to 16 nodes and 5000 to 15000 edges.
 
-To further assess the model's scalability and generalization capabilities, we created a combined video by concatenating all the source videos. This combined dataset aims to test whether the model can predict driver behavior across all participants within a single learning process. The combined video has a total duration of approximately 10 hours, with 16 nodes and 287,644 edges. The number of nodes in the dataset shows only slight variation across videos. However, significant differences are observed in the number of edges and the video duration. As such, these latter factors—edge count and video duration—are considered the primary contributors to variations in model performance when applying the same model to different datasets.
+This work created a combined video by concatenating all the source videos to further assess the model's scalability and generalization capabilities. This combined dataset tests whether the model can predict driver behavior across all participants within a single learning process. The combined video has a total duration of approximately 10 hours, with 16 nodes and 287,644 edges. The number of nodes in the dataset shows only slight variation across videos. However, significant differences are observed in the number of edges and the video duration. As such, these latter factors—edge count and video duration—are considered the primary contributors to variations in model performance when applying the same model to different datasets.
 
-Since our goal is to make predictions within dynamic graphs, it is essential to account for both \textbf{old nodes} that have appeared in previous time steps and \textbf{new nodes} that have not yet been observed. Both cases are integral to evaluating the model’s ability to generalize and adapt to evolving graph structures.
+Since our goal is to make predictions within dynamic graphs, it is essential to account for both \textbf{old nodes} that have appeared in previous time steps and \textbf{new nodes} that have not yet been observed. Both cases evaluate the model’s ability to generalize and adapt to evolving graph structures.
 
 \clearpage
 
@@ -134,7 +134,7 @@ Figure~\ref{fig:loss_comparison} provides clear evidence supporting our conclusi
 
 The decision to train the model with the original \textbf{JODIE} model serves two primary purposes. First, it allows us to validate our earlier hypothesis that JODIE exhibits superior performance across most videos in our dataset. Second, it provides a benchmark for comparison with the modified model incorporating state embeddings.
 
-The evaluation of JODIE on individual videos demonstrates its robustness in predicting dynamic behavior, with results shown in Figure~\ref{fig:JODIE_results}. The model achieves consistent performance, with AU-ROC scores and APC approaching 1 across all original videos. This high accuracy can be attributed to the model's simplicity when edge states are excluded, relying only on single interactions per time period. Moreover, JODIE performs well in predicting both old and new nodes, indicating its ability to generalize across different node types.
+The evaluation of JODIE on individual videos demonstrates its robustness in predicting dynamic behavior, with results shown in Figure~\ref{fig:JODIE_results}. The model performs consistently, with AU-ROC scores and APC approaching 1 across all original videos. This high accuracy can be attributed to the model's simplicity when edge states are excluded, relying only on single interactions per period. Moreover, JODIE performs well in predicting both old and new nodes, indicating its ability to generalize across different node types.
 
 However, challenges arise when training on the combined graph, which merges all videos. The increased complexity of this dataset—characterized by 15 participants, a significantly larger number of edges, and an extended duration—appears to hinder the model's performance. Despite this, JODIE remains the most effective model in our experiments when trained on graphs generated from individual videos in the dataset, further supporting its selection as a baseline.
 
@@ -151,13 +151,11 @@ However, challenges arise when training on the combined graph, which merges all 
 
 \section{HMM Evaluation}
 
+At this stage, the basic prediction tasks can already be performed on the dynamic graphs prepared for learning. However, none of the given models can effectively predict the edges and their corresponding states on the dynamic graphs. To address this limitation, we first consider some classic models that offer the possiblity of future behavior prediction in some time-consequent datasets.
 
+As is discussed before, we decide to evaluate the performance of Hidden Markov Models (HMM) on the same dataset. The HMM model is trained using the same dynamic graph structure as the JODIE model, with identical training and testing splits. The results are presented in Figure~\ref{fig:HMM_results}. From the previous explanation, the output model has a random distribution at the begining, along with several updates based on the ground truth in the time sequence. Due to the random initial probabilities of HMM, the model will suffer from a random different from each training. Therefore, I conducted multiple training runs to comprehensively represent its performance.
 
-At this stage, the basic prediction tasks can already be performed on the dynamic graphs prepared for learning. However, none of the given models can predict both the edges and their corresponding states on the dynamic graphs effectively. To address this limitation, we first consider some classic models that offer the possiblity of future behavior prediction in some time-consequent datasets.
-
-As is discussed before, we decide to evaluate the performance of Hidden Markov Models (HMM) on the same dataset. The HMM model is trained using the same dynamic graph structure as the JODIE model, with identical training and testing splits. The results are presented in Figure~\ref{fig:HMM_results}. Due to the inherent variability in the output of HMM, multiple training runs were conducted to provide a comprehensive understanding of its performance.
-
-From the figure, it is evident that while HMM can learn from all the graphs and generate predictions for future behaviors, the results lack consistent patterns. In some cases, such as the training on \textit{vp03run1}, \textit{vp08run2}, \textit{vp10run2}, \textit{vp13run1}, and \textit{vp13run2}, peaks in the AU-ROC score are observed. However, these peaks are not replicable across different training runs on the same graphs, indicating that the HMM model lacks stability for dynamic graph prediction tasks. A similar inconsistency is also observed in the AP scores.
+The figure shows that while HMM can learn from all the graphs and generate predictions for future behaviors, the results lack consistent patterns. In some cases, such as the training on \textit{vp03run1}, \textit{vp08run2}, \textit{vp10run2}, \textit{vp13run1}, and \textit{vp13run2}, peaks in the AU-ROC score are observed. However, these peaks are not replicable across different training runs on the same graphs, indicating that the HMM model lacks stability for dynamic graph prediction tasks. A similar inconsistency is also observed in the AP scores.
 
 Although HMM offers a minimalist approach to the problem and demonstrates potential for application in dynamic graph prediction tasks, its inherent instability makes it unsuitable for real-world scenarios. The subsequent section presents our solution to this limitation by integrating state embeddings into the JODIE model.
 
@@ -186,7 +184,7 @@ Another notable observation is the model’s superior performance in predicting 
 \end{figure}
 
 \clearpage
-% TODO:yet still our work is much better than HMM
+
 
 For the comparison between our model and the HMM model, the results are shown in Figure~\ref{fig:JODIE_state_HMM_AUROC} and Figure~\ref{fig:JODIE_state_HMM_AP}. A random result pair from the previous HMM training is selected for reference. The JODIE model with state embeddings consistently outperforms the HMM model across all videos in terms of AUROC scores. Regarding AP scores, while the HMM model occasionally surpasses our approach in certain cases, our model demonstrates superior performance in many situations. This highlights the greater stability of our model compared to traditional methods, as the variance in results is significantly lower than that of HMM. Furthermore, the findings emphasize the limitations of traditional models like HMM in managing complex, dynamic datasets, reinforcing the necessity of advanced techniques such as JODIE with state embeddings.
 
